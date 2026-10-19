@@ -6,22 +6,19 @@
 <meta name="color-scheme" content="dark">
 <title>Name Surname — visuals &amp; light</title>
 <meta name="description" content="Visuals and light: feedback loops, cellular automata, fractals.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff2bd6'/%3E%3Cstop offset='.5' stop-color='%237b5cff'/%3E%3Cstop offset='1' stop-color='%232de2ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='%2307060b'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='url(%23g)' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23ff2bd6' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #07060b;
-    --fg: #efeaf8;
-    --soft: #cbc4de;
-    --muted: #8f88a6;
-    --line: rgba(239, 234, 248, 0.12);
-    --magenta: #ff2bd6;
-    --violet: #7b5cff;
+    --bg: #000;
+    --fg: #f2f2f2;
+    --soft: #c4c4c4;
+    --muted: #8a8a8a;
+    --line: rgba(255, 255, 255, 0.12);
+    --pink: #ff2bd6;
     --cyan: #2de2ff;
-    --lime: #c6ff3d;
-    --grad: linear-gradient(90deg, var(--magenta), var(--violet), var(--cyan), var(--lime), var(--magenta));
     --display: "Unbounded", system-ui, sans-serif;
     --body: "Manrope", system-ui, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -40,36 +37,8 @@
     overflow-x: hidden;
   }
   a { color: inherit; }
-  ::selection { background: var(--magenta); color: var(--bg); }
+  ::selection { background: var(--pink); color: var(--bg); }
   :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
-
-  /* ---------- generative background ---------- */
-  #bg {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100lvh;
-    display: block;
-    z-index: 0;
-  }
-  .veil {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(90% 70% at 18% 78%, rgba(7, 6, 11, 0.82), rgba(7, 6, 11, 0.2) 70%, transparent),
-      linear-gradient(to bottom, rgba(7, 6, 11, 0.35), transparent 30%, transparent 70%, rgba(7, 6, 11, 0.55));
-  }
-  .no-gl #bg { display: none; }
-  .no-gl body {
-    background:
-      radial-gradient(60% 50% at 80% 20%, rgba(123, 92, 255, 0.18), transparent),
-      radial-gradient(50% 40% at 10% 90%, rgba(255, 43, 214, 0.12), transparent),
-      var(--bg);
-  }
-
-  .top, main, .contact { position: relative; z-index: 1; }
 
   /* ---------- header ---------- */
   .top {
@@ -110,13 +79,8 @@
     margin: 0.22em 0 0.32em;
     font: 800 clamp(44px, 10.5vw, 156px)/0.9 var(--display);
     letter-spacing: -0.035em;
-    background: var(--grad) 0 0 / 200% 100% repeat-x;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: drift 16s linear infinite;
+    color: var(--fg);
   }
-  @keyframes drift { to { background-position: 200% 0; } }
   .lead {
     margin: 0 0 clamp(28px, 5vh, 48px);
     max-width: 34ch;
@@ -125,28 +89,8 @@
     text-wrap: pretty;
   }
   .lead em { font-style: normal; }
-  .lead .c1 { color: var(--magenta); }
-  .lead .c2 { color: var(--cyan); }
-  .lead .c3 { color: var(--lime); }
-  .bg-note {
-    margin: 0;
-    max-width: 58ch;
-    padding-left: 14px;
-    border-left: 1px solid var(--line);
-    font: 400 12.5px/1.65 var(--mono);
-    color: var(--muted);
-  }
-  .linkbtn {
-    font: inherit;
-    color: var(--fg);
-    background: none;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: var(--magenta);
-    text-underline-offset: 3px;
-  }
+  .lead .pink { color: var(--pink); }
+  .lead .cyan { color: var(--cyan); }
 
   /* ---------- works ---------- */
   .works {
@@ -198,7 +142,7 @@
   .info h3 small {
     font: 500 0.55em/1 var(--mono);
     letter-spacing: 0.06em;
-    color: var(--magenta);
+    color: var(--pink);
     vertical-align: 0.35em;
     margin-left: 0.3em;
   }
@@ -225,16 +169,16 @@
     margin: 0.15em 0 0.25em;
     font: 800 clamp(48px, 12vw, 168px)/0.9 var(--display);
     letter-spacing: -0.04em;
-    color: var(--magenta);
+    color: var(--pink);
     opacity: 0.9;
   }
   @supports (-webkit-text-stroke: 1px black) {
-    .series-title { color: var(--bg); -webkit-text-stroke: 1.5px var(--magenta); }
+    .series-title { color: var(--bg); -webkit-text-stroke: 1.5px var(--pink); }
   }
   .series p:not(.kicker) { margin: 0; max-width: 56ch; color: var(--soft); font-size: clamp(16px, 1.5vw, 19px); }
 
   /* ---------- media + player ---------- */
-  .media { position: relative; isolation: isolate; }
+  .media { position: relative; }
   .media.pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -243,18 +187,6 @@
     width: 100%;
     justify-self: center;
   }
-  .ambient {
-    position: absolute;
-    left: -9%; top: -12%;
-    width: 118%; height: 124%;
-    z-index: -1;
-    pointer-events: none;
-    filter: blur(44px) saturate(1.6);
-    opacity: 0;
-    transition: opacity 1.4s ease;
-  }
-  .work.is-live .ambient { opacity: 0.75; }
-
   .player {
     position: relative;
     margin: 0;
@@ -293,25 +225,14 @@
     display: grid;
     place-items: center;
     border-radius: 50%;
-    border: 0;
+    border: 1.5px solid var(--pink);
     padding: 0;
     color: #fff;
     cursor: pointer;
-    background: rgba(7, 6, 11, 0.45);
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     transition: opacity 0.3s, transform 0.3s;
-  }
-  .play::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    padding: 1.5px;
-    background: conic-gradient(from 0deg, var(--magenta), var(--violet), var(--cyan), var(--lime), var(--magenta));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
   }
   .play svg { width: 22px; height: 22px; margin-left: 4px; }
   .player:hover .play { transform: scale(1.06); }
@@ -342,7 +263,7 @@
     padding: 0 12px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(7, 6, 11, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     color: #fff;
@@ -353,7 +274,7 @@
     transition: background 0.25s, color 0.25s, border-color 0.25s, opacity 0.3s;
   }
   .chip:hover { border-color: rgba(255, 255, 255, 0.45); }
-  .chip[aria-pressed="true"] { background: var(--lime); border-color: var(--lime); color: var(--bg); }
+  .chip[aria-pressed="true"] { background: var(--cyan); border-color: var(--cyan); color: var(--bg); }
   .chip.fs { width: 30px; padding: 0; justify-content: center; }
   .chip svg { width: 13px; height: 13px; }
 
@@ -379,7 +300,7 @@
   }
   .bar::before { background: rgba(255, 255, 255, 0.12); }
   .bar i {
-    background: linear-gradient(90deg, var(--magenta), var(--violet), var(--cyan));
+    background: var(--pink);
     transform-origin: left;
     transform: scaleX(0);
   }
@@ -416,7 +337,7 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  .links a:hover { color: var(--lime); padding-left: 10px; }
+  .links a:hover { color: var(--cyan); padding-left: 10px; }
   .fine {
     display: flex;
     flex-wrap: wrap;
@@ -445,15 +366,11 @@
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .name { animation: none; }
     [aria-pressed="true"] .eq i { animation: none; height: 8px; }
   }
 </style>
 </head>
 <body>
-<canvas id="bg" aria-hidden="true"></canvas>
-<div class="veil" aria-hidden="true"></div>
-
 <header class="top">
   <a class="mark" href="#">Name Surname</a>
   <nav>
@@ -467,14 +384,9 @@
     <p class="kicker">visuals · light</p>
     <h1 class="name">Name<br>Surname</h1>
     <p class="lead">
-      In my visuals I use <em class="c1">feedback loops</em>, <em class="c2">cellular automata</em>,
-      <em class="c3">fractals</em> and the like. I’m drawn to systems that produce complex, unusual
+      In my visuals I use <em class="pink">feedback loops</em>, <em class="cyan">cellular automata</em>,
+      <em class="pink">fractals</em> and the like. I’m drawn to systems that produce complex, unusual
       behavior while staying, as far as possible, simple at&nbsp;their&nbsp;core.
-    </p>
-    <p class="bg-note">
-      The background is a cyclic cellular automaton. A cell moves on to its next state once enough
-      of its neighbors are already there. Out of random noise it organizes itself into curling waves;
-      move the cursor to stir in some chaos. <button class="linkbtn" type="button" data-bg-toggle>Pause background</button>
     </p>
   </section>
 
@@ -644,314 +556,10 @@
   </ul>
   <p class="fine">
     <span>© 2026 Name Surname</span>
-    <span>background: cyclic cellular automaton, R3 / T5 / C8 · <button class="linkbtn" type="button" data-bg-toggle>Pause background</button></span>
   </p>
 </footer>
 
 <script>
-/* ============================================================
-   Background: cyclic cellular automaton (WebGL)
-   Each cell holds a state 0..N-1. It advances to (s+1) mod N when
-   at least T cells in its (2R+1)^2 neighbourhood already hold s+1.
-   Rule can be overridden for experiments: ?rule=R,T,N&cell=px
-   ============================================================ */
-const Background = (() => {
-  const canvas = document.getElementById('bg');
-  const q = new URLSearchParams(location.search);
-  const [R, T, N] = (q.get('rule') || '3,5,8').split(',').map(n => parseInt(n, 10));
-  const CELL = parseFloat(q.get('cell')) || 4;          // CSS px per cell
-  const CRUISE = 7;                                      // steps per second once settled
-  const WARM = 700;                                      // fast steps while noise self-organizes
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const api = { paused: false, watching: false, steps: 0, toggle() {} };
-
-  const gl = canvas.getContext('webgl', {
-    alpha: false, antialias: false, depth: false, stencil: false,
-    powerPreference: 'low-power', preserveDrawingBuffer: false,
-  });
-  if (!gl) { document.documentElement.classList.add('no-gl'); return api; }
-
-  const HEAD = `
-    #ifdef GL_FRAGMENT_PRECISION_HIGH
-    precision highp float;
-    #else
-    precision mediump float;
-    #endif
-    #define R ${R}
-    #define T ${T}.0
-    #define N ${N}.0
-    float hash(vec2 p) {
-      p = fract(p * vec2(443.897, 441.423));
-      p += dot(p, p.yx + 19.19);
-      return fract((p.x + p.y) * p.x);
-    }
-    float st(sampler2D s, vec2 uv) { return floor(texture2D(s, uv).r * 255.0 + 0.5); }
-  `;
-  const VS = 'attribute vec2 a; void main() { gl_Position = vec4(a, 0.0, 1.0); }';
-
-  const STEP = `
-    uniform sampler2D u_s;
-    uniform vec2 u_res;
-    void main() {
-      vec2 uv = gl_FragCoord.xy / u_res;
-      float s = st(u_s, uv);
-      float nx = mod(s + 1.0, N);
-      float c = 0.0;
-      for (int y = -R; y <= R; y++) {
-        for (int x = -R; x <= R; x++) {
-          float k = st(u_s, fract(uv + vec2(float(x), float(y)) / u_res));
-          c += 1.0 - step(0.5, abs(k - nx));
-        }
-      }
-      gl_FragColor = vec4((c >= T ? nx : s) / 255.0, 0.0, 0.0, 1.0);
-    }
-  `;
-
-  // scatters random states along the pointer path
-  const SPLAT = `
-    uniform vec2 u_a, u_b;
-    uniform float u_r, u_seed;
-    void main() {
-      vec2 p = gl_FragCoord.xy;
-      vec2 ab = u_b - u_a;
-      float h = clamp(dot(p - u_a, ab) / max(dot(ab, ab), 1e-4), 0.0, 1.0);
-      if (length(p - u_a - ab * h) > u_r) discard;
-      if (hash(p + u_seed) < 0.35) discard;
-      gl_FragColor = vec4(floor(hash(p.yx * 1.37 + u_seed * 3.1) * N) / 255.0, 0.0, 0.0, 1.0);
-    }
-  `;
-
-  const DISPLAY = `
-    uniform sampler2D u_a, u_b;
-    uniform vec2 u_res, u_view;
-    uniform float u_cell, u_phase, u_t, u_k;
-    vec3 grad(float t) {
-      vec3 c0 = vec3(1.0, 0.17, 0.84);   // magenta
-      vec3 c1 = vec3(0.48, 0.36, 1.0);   // violet
-      vec3 c2 = vec3(0.18, 0.89, 1.0);   // cyan
-      vec3 c3 = vec3(0.78, 1.0, 0.24);   // lime
-      t = fract(t) * 4.0;
-      float f = smoothstep(0.0, 1.0, fract(t));
-      if (t < 1.0) return mix(c0, c1, f);
-      if (t < 2.0) return mix(c1, c2, f);
-      if (t < 3.0) return mix(c2, c3, f);
-      return mix(c3, c0, f);
-    }
-    void main() {
-      vec2 cell = floor(gl_FragCoord.xy / u_cell);
-      vec2 uv = (cell + 0.5) / u_res;
-      float s0 = st(u_a, uv);
-      float s1 = st(u_b, uv);
-      float d = mod(s1 - s0 + N, N);
-      float v = d < 1.5 ? s0 + d * u_phase : mix(s0, s1, step(0.5, u_phase));
-      float arm = pow(0.5 + 0.5 * cos(6.2831853 * v / N), 10.0);
-      vec2 sp = gl_FragCoord.xy / u_view;
-      vec3 col = grad(sp.x * 0.32 - sp.y * 0.22 + u_t * 0.011 + 0.06 * v / N);
-      vec2 f = fract(gl_FragCoord.xy / u_cell);
-      float g = u_cell >= 4.0 ? step(1.0 / u_cell, f.x) * step(1.0 / u_cell, f.y) : 1.0;
-      vec3 base = vec3(0.027, 0.024, 0.043);
-      gl_FragColor = vec4(base + col * (0.045 + 0.85 * arm) * g * u_k, 1.0);
-    }
-  `;
-
-  let P;
-  try {
-    const compile = (type, src) => {
-      const s = gl.createShader(type);
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
-      return s;
-    };
-    const vs = compile(gl.VERTEX_SHADER, VS);
-    const program = fs => {
-      const p = gl.createProgram();
-      gl.attachShader(p, vs);
-      gl.attachShader(p, compile(gl.FRAGMENT_SHADER, HEAD + fs));
-      gl.bindAttribLocation(p, 0, 'a');
-      gl.linkProgram(p);
-      if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
-      const u = {};
-      for (let i = 0, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS); i < n; i++) {
-        const name = gl.getActiveUniform(p, i).name;
-        u[name] = gl.getUniformLocation(p, name);
-      }
-      return { p, u };
-    };
-    P = { step: program(STEP), splat: program(SPLAT), display: program(DISPLAY) };
-  } catch (err) {
-    console.warn('background disabled:', err);
-    document.documentElement.classList.add('no-gl');
-    return api;
-  }
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-  gl.enableVertexAttribArray(0);
-  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-  gl.disable(gl.BLEND);
-
-  let W = 0, H = 0, cellPx = 1, tex = [], fbo = [], a = 0, warm = 0, acc = 0;
-
-  function makeTex(data) {
-    const t = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, t);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, data);
-    return t;
-  }
-
-  // tex[a] = shown state, tex[1-a] = the state after it
-  function compute(from, to) {
-    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo[to]);
-    gl.viewport(0, 0, W, H);
-    gl.useProgram(P.step.p);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, tex[from]);
-    gl.uniform1i(P.step.u.u_s, 0);
-    gl.uniform2f(P.step.u.u_res, W, H);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-  }
-  function advance() { a = 1 - a; compute(a, 1 - a); api.steps++; }
-
-  function setup() {
-    const cw = canvas.clientWidth, ch = canvas.clientHeight;
-    if (!cw || !ch) return;
-    const scale = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(2.4e6 / (cw * ch)));
-    canvas.width = Math.round(cw * scale);
-    canvas.height = Math.round(ch * scale);
-    cellPx = CELL * scale;
-    W = Math.ceil(canvas.width / cellPx);
-    H = Math.ceil(canvas.height / cellPx);
-
-    const data = new Uint8Array(W * H * 4);
-    for (let i = 0; i < W * H; i++) { data[i * 4] = (Math.random() * N) | 0; data[i * 4 + 3] = 255; }
-    tex.forEach(t => gl.deleteTexture(t));
-    fbo.forEach(f => gl.deleteFramebuffer(f));
-    tex = [makeTex(data), makeTex(null)];
-    fbo = tex.map(t => {
-      const f = gl.createFramebuffer();
-      gl.bindFramebuffer(gl.FRAMEBUFFER, f);
-      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
-      return f;
-    });
-    a = 0;
-    compute(0, 1);
-    acc = 0;
-    warm = WARM;
-    if (reduce) for (; warm > 0; warm--) advance();
-  }
-
-  // pointer → random states along its path
-  let ptr = null, prevPtr = null, ptrTime = 0;
-  addEventListener('pointermove', e => {
-    const r = canvas.getBoundingClientRect();
-    ptr = {
-      x: (e.clientX - r.left) * canvas.width / r.width / cellPx,
-      y: (r.bottom - e.clientY) * canvas.height / r.height / cellPx,
-    };
-    ptrTime = performance.now();
-  }, { passive: true });
-
-  function splat(p0, p1) {
-    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo[1 - a]);
-    gl.viewport(0, 0, W, H);
-    gl.useProgram(P.splat.p);
-    gl.uniform2f(P.splat.u.u_a, p0.x, p0.y);
-    gl.uniform2f(P.splat.u.u_b, p1.x, p1.y);
-    gl.uniform1f(P.splat.u.u_r, 3.5);
-    gl.uniform1f(P.splat.u.u_seed, Math.random() * 100);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-  }
-
-  let k = 0, drawnK = -1, drawnPhase = -1, last = performance.now();
-
-  function targetK() {
-    const y = scrollY / innerHeight;
-    const s = Math.min(1, Math.max(0, (y - 0.15) / 0.7));
-    let t = 0.62 - 0.36 * s * s * (3 - 2 * s);
-    if (api.watching) t *= 0.55;
-    return t;
-  }
-
-  function draw(now, phase) {
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    gl.viewport(0, 0, canvas.width, canvas.height);
-    const u = P.display.u;
-    gl.useProgram(P.display.p);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, tex[a]);
-    gl.activeTexture(gl.TEXTURE1);
-    gl.bindTexture(gl.TEXTURE_2D, tex[1 - a]);
-    gl.uniform1i(u.u_a, 0);
-    gl.uniform1i(u.u_b, 1);
-    gl.uniform2f(u.u_res, W, H);
-    gl.uniform2f(u.u_view, canvas.width, canvas.height);
-    gl.uniform1f(u.u_cell, cellPx);
-    gl.uniform1f(u.u_phase, phase);
-    gl.uniform1f(u.u_t, now / 1000);
-    gl.uniform1f(u.u_k, k);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    drawnK = k;
-    drawnPhase = phase;
-  }
-
-  function frame(now) {
-    requestAnimationFrame(frame);
-    const dt = Math.min(0.1, (now - last) / 1000);
-    last = now;
-    if (!W) return;
-
-    const running = !api.paused && !reduce;
-    if (running) {
-      if (warm > 0) {
-        // frame-rate independent: noise → waves within the first second
-        for (let n = 0; warm > 0 && n < 14; n++, warm--) advance();
-      } else {
-        acc += dt * CRUISE;
-        for (let n = 0; acc >= 1 && n < 4; n++) { advance(); acc -= 1; }
-        acc = Math.min(acc, 0.999);
-      }
-
-      if (ptr) {
-        if (!prevPtr || now - ptrTime > 120) prevPtr = ptr;
-        splat(prevPtr, ptr);
-        prevPtr = ptr;
-        ptr = null;
-      }
-    }
-
-    k += (targetK() - k) * Math.min(1, dt * 2.2);
-    const phase = running ? acc : 0;
-    if (running || Math.abs(k - drawnK) > 0.002 || phase !== drawnPhase) draw(now, phase);
-  }
-
-  let lastSize = '';
-  new ResizeObserver(() => {
-    const size = `${canvas.clientWidth}x${canvas.clientHeight}`;
-    if (size === lastSize) return;
-    const [pw, ph] = lastSize.split('x').map(Number);
-    // ignore small height jitter from mobile browser chrome
-    if (lastSize && pw === canvas.clientWidth && Math.abs(ph - canvas.clientHeight) < 140) return;
-    lastSize = size;
-    setup();
-  }).observe(canvas);
-
-  requestAnimationFrame(frame);
-
-  const toggles = document.querySelectorAll('[data-bg-toggle]');
-  api.toggle = () => {
-    api.paused = !api.paused;
-    toggles.forEach(b => b.textContent = api.paused ? 'Resume background' : 'Pause background');
-  };
-  toggles.forEach(b => b.addEventListener('click', api.toggle));
-  if (reduce) toggles.forEach(b => b.hidden = true);
-  return api;
-})();
-
 /* ============================================================
    Videos: the most visible one plays; one sound switch for all
    ============================================================ */
@@ -976,23 +584,12 @@ const Background = (() => {
       <div class="bar" aria-hidden="true"><i></i></div>`);
     return {
       el, v,
-      work: el.closest('.work'),
-      media: el.closest('.media'),
       bar: el.querySelector('.bar'),
       fill: el.querySelector('.bar i'),
       ratio: 0,
     };
   });
   const byEl = new Map(players.map(p => [p.el, p]));
-
-  // soft light that spills from the playing video
-  for (const media of new Set(players.map(p => p.media))) {
-    const c = document.createElement('canvas');
-    c.className = 'ambient';
-    c.setAttribute('aria-hidden', 'true');
-    media.prepend(c);
-    media._amb = c;
-  }
 
   const soundButtons = document.querySelectorAll('[data-sound-toggle]');
   function syncSound() {
@@ -1001,10 +598,6 @@ const Background = (() => {
       b.querySelector('b').textContent = soundOn ? 'sound on' : 'sound off';
     });
     if (active) active.v.muted = !soundOn;
-  }
-
-  function updateWatching() {
-    Background.watching = players.some(p => !p.v.paused);
   }
 
   function start(p) {
@@ -1023,18 +616,16 @@ const Background = (() => {
     if (active) {
       active.v.pause();
       active.el.classList.remove('is-active');
-      active.work.classList.remove('is-live');
     }
     active = p;
     if (!p) return;
     p.el.classList.add('is-active');
-    p.work.classList.add('is-live');
     start(p);
   }
 
   for (const p of players) {
-    p.v.addEventListener('play', () => { p.el.classList.add('is-playing'); updateWatching(); });
-    p.v.addEventListener('pause', () => { p.el.classList.remove('is-playing'); updateWatching(); });
+    p.v.addEventListener('play', () => p.el.classList.add('is-playing'));
+    p.v.addEventListener('pause', () => p.el.classList.remove('is-playing'));
 
     p.el.addEventListener('click', e => {
       if (e.target.closest('.snd, .fs, .bar')) return;
@@ -1094,24 +685,11 @@ const Background = (() => {
   }, { threshold: [0, 0.2, 0.35, 0.5, 0.6, 0.75, 0.9, 1] });
   players.forEach(p => io.observe(p.el));
 
-  let lastAmb = 0;
-  function tick(now) {
+  function tick() {
     requestAnimationFrame(tick);
     if (!active) return;
     const v = active.v;
     if (v.duration) active.fill.style.transform = `scaleX(${v.currentTime / v.duration})`;
-    if (v.paused || v.readyState < 2 || now - lastAmb < 90) return;
-    lastAmb = now;
-    const c = active.media._amb;
-    const mr = active.media.getBoundingClientRect();
-    const vr = active.el.getBoundingClientRect();
-    const cw = 48, ch = Math.max(8, Math.round(cw * mr.height / mr.width));
-    if (c.width !== cw || c.height !== ch) { c.width = cw; c.height = ch; }
-    const ctx = c.getContext('2d');
-    ctx.clearRect(0, 0, cw, ch);
-    ctx.drawImage(v,
-      (vr.left - mr.left) / mr.width * cw, (vr.top - mr.top) / mr.height * ch,
-      vr.width / mr.width * cw, vr.height / mr.height * ch);
   }
   requestAnimationFrame(tick);
 })();
