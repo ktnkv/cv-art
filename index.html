@@ -165,16 +165,28 @@
   }
   .series p:not(.kicker) { margin: 0; max-width: 56ch; color: var(--soft); font-size: clamp(16px, 1.5vw, 19px); }
 
+
+  /* series: one block with a part switcher */
+  .stage { position: relative; aspect-ratio: 16 / 9; }
+  .stage .part { position: absolute; inset: 0; }
+  .stage .part[hidden] { display: none; }
+  .stage .part:not(.tall) > .player { position: absolute; inset: 0; aspect-ratio: auto; }
+  /* portrait pieces: the stage grows taller and the video is shown uncropped */
+  .stage:has(.tall:not([hidden])) { aspect-ratio: 9 / 16; max-height: min(86vh, 860px); }
+  .stage .tall > .player { height: 100%; width: auto; margin: 0 auto; }
+  .series-block .info p { margin-bottom: 1.6em; }
+  .parts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .parts button {
+    padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px;
+    background: none; color: var(--muted); cursor: pointer;
+    font: 400 14px/1 "Silkscreen", system-ui, sans-serif;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .parts button:hover { color: var(--fg); }
+  .parts button[aria-current="true"] { color: var(--pink); border-color: var(--pink); }
+
   /* ---------- media + player ---------- */
   .media { position: relative; }
-  .media.pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    max-width: 600px;
-    width: 100%;
-    justify-self: center;
-  }
   .player {
     position: relative;
     margin: 0;
@@ -340,7 +352,6 @@
   @media (max-width: 880px) {
     .work, .work.flip { grid-template-columns: 1fr; gap: 22px; }
     .work.flip .media { order: 0; }
-    .media.pair { max-width: 520px; gap: 8px; }
     .top nav { gap: 16px; }
   }
   @media (max-width: 480px) {
@@ -432,81 +443,63 @@
     <div class="series">
       <p class="kicker">series</p>
       <h3 class="series-title">infossae</h3>
-      <p>A series built around a single sign — a crawling spider crossed with the biohazard symbol. In every piece it stays the same and serves as the seed — the rest grows out of&nbsp;it.</p>
     </div>
 
-    <article class="work flip">
-      <div class="media">
-        <figure class="player">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-2.jpg" aria-label="infossae 2">
-            <source src="assets/web/infossae-2.mp4" type="video/mp4">
-          </video>
-        </figure>
+    <article class="work flip series-block">
+      <div class="media stage">
+        <div class="part" data-part="0">
+          <figure class="player">
+            <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-2.jpg" aria-label="infossae 2">
+              <source src="assets/web/infossae-2.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="part" data-part="1" hidden>
+          <figure class="player">
+            <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-3.jpg" aria-label="infossae 3">
+              <source src="assets/web/infossae-3.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="part" data-part="2" hidden>
+          <figure class="player">
+            <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-4.jpg" aria-label="infossae 4">
+              <source src="assets/web/infossae-4.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="part" data-part="3" hidden>
+          <figure class="player">
+            <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-5.jpg" aria-label="infossae 5">
+              <source src="assets/web/infossae-5.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="part tall" data-part="4" hidden>
+          <figure class="player portrait">
+            <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-6.jpg" aria-label="infossae 6">
+              <source src="assets/web/infossae-6.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="part tall" data-part="5" hidden>
+          <figure class="player portrait">
+            <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-7.jpg" aria-label="infossae 7">
+              <source src="assets/web/infossae-7.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
       </div>
       <div class="info">
-        <h3>infossae <small>01</small></h3>
-        <p>The same sign, quieter and darker: the glow pulses around the silhouette while the light bars shift from blue to red.</p>
-      </div>
-    </article>
-
-    <article class="work">
-      <div class="media">
-        <figure class="player">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-3.jpg" aria-label="infossae 3">
-            <source src="assets/web/infossae-3.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-      <div class="info">
-        <h3>infossae <small>02</small></h3>
-        <p>The image breaks into hundreds of cells, as if seen through glass tiles, and a mirrored creature resembling a Rorschach blot assembles in the center.</p>
-      </div>
-    </article>
-
-    <article class="work flip">
-      <div class="media">
-        <figure class="player">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-4.jpg" aria-label="infossae 4">
-            <source src="assets/web/infossae-4.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-      <div class="info">
-        <h3>infossae <small>03</small></h3>
-        <p>Horizontal rows of swollen, fluid cells; the sign is only hinted at through them. At moments the picture goes completely dark — a pause hits as hard as a flash.</p>
-      </div>
-    </article>
-
-    <article class="work">
-      <div class="media">
-        <figure class="player">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-5.jpg" aria-label="infossae 5">
-            <source src="assets/web/infossae-5.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-      <div class="info">
-        <h3>infossae <small>04</small></h3>
-        <p>The wall is scored with horizontal stripes, and the sign is drawn in thin contour lines — as if the image were being read line by line.</p>
-      </div>
-    </article>
-
-    <article class="work flip">
-      <div class="media pair">
-        <figure class="player portrait">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-6.jpg" aria-label="infossae 6">
-            <source src="assets/web/infossae-6.mp4" type="video/mp4">
-          </video>
-        </figure>
-        <figure class="player portrait">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-7.jpg" aria-label="infossae 7">
-            <source src="assets/web/infossae-7.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-      <div class="info">
-        <h3>infossae <small>05 — 06</small></h3>
-        <p>Two color states of one scene. Blue: stripes and scan noise. Red: smoky feedback around the sign. Each time, the light in the room takes on the tone of the projection.</p>
+        <p>A series built around a single sign — a crawling spider crossed with the biohazard symbol. In every piece it stays the same and serves as the seed — the rest grows out of&nbsp;it.</p>
+        <ol class="parts">
+          <li><button type="button" data-goto="0" aria-current="true">01</button></li>
+          <li><button type="button" data-goto="1">02</button></li>
+          <li><button type="button" data-goto="2">03</button></li>
+          <li><button type="button" data-goto="3">04</button></li>
+          <li><button type="button" data-goto="4">05</button></li>
+          <li><button type="button" data-goto="5">06</button></li>
+        </ol>
       </div>
     </article>
   </section>
@@ -648,6 +641,29 @@
     if (best) activate(best);
   }, { threshold: [0, 0.2, 0.35, 0.5, 0.6, 0.75, 0.9, 1] });
   players.forEach(p => io.observe(p.el));
+
+
+  // series part switcher — keeps playing if the block was playing
+  const block = document.querySelector('.series-block');
+  if (block) {
+    const partEls = [...block.querySelectorAll('.part')];
+    const btns = [...block.querySelectorAll('[data-goto]')];
+    btns.forEach(b => b.addEventListener('click', () => {
+      const k = +b.dataset.goto;
+      const wasPlaying = active && block.contains(active.el);
+      // keep the block's centre pinned on screen when its height changes:
+      // the page above scrolls away instead of the video sliding down
+      const stage = block.querySelector('.stage');
+      const centre = () => { const r = stage.getBoundingClientRect(); return r.top + r.height / 2; };
+      const before = centre();
+      partEls.forEach((el, i) => { el.hidden = i !== k; });
+      const shift = centre() - before;
+      if (shift) window.scrollBy({ top: shift, behavior: 'instant' });
+      btns.forEach(x => x.setAttribute('aria-current', x === b));
+      const first = byEl.get(partEls[k].querySelector('.player'));
+      if (wasPlaying) { activate(null); activate(first); }
+    }));
+  }
 
   function tick() {
     requestAnimationFrame(tick);
