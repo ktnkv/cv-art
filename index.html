@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>Name Surname — visuals &amp; light</title>
-<meta name="description" content="Visuals and light: feedback loops, cellular automata, fractals.">
+<title>Maxim Koltiugin — visuals &amp; light</title>
+<meta name="description" content="Visuals and light in TouchDesigner: feedback loops, cellular automata, fractals.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23ff2bd6' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Chakra+Petch:wght@400;500&family=Manrope:wght@400;500;600&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #000;
@@ -19,7 +19,7 @@
     --line: rgba(255, 255, 255, 0.12);
     --pink: #ff2bd6;
     --cyan: #2de2ff;
-    --display: "Unbounded", system-ui, sans-serif;
+    --display: "Chakra Petch", system-ui, sans-serif;
     --body: "Manrope", system-ui, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
     --gutter: clamp(16px, 4vw, 56px);
@@ -77,14 +77,14 @@
   }
   .name {
     margin: 0.22em 0 0.32em;
-    font: 800 clamp(44px, 10.5vw, 156px)/0.9 var(--display);
-    letter-spacing: -0.035em;
+    font: 400 clamp(36px, 7vw, 104px)/0.9 var(--display);
+    letter-spacing: 0.02em;
     color: var(--fg);
   }
   .lead {
     margin: 0 0 clamp(28px, 5vh, 48px);
-    max-width: 34ch;
-    font: 500 clamp(19px, 2.15vw, 27px)/1.45 var(--body);
+    max-width: 40ch;
+    font: 500 clamp(16px, 1.6vw, 20px)/1.5 var(--body);
     color: var(--fg);
     text-wrap: pretty;
   }
@@ -110,7 +110,7 @@
   }
   .section-head h2 {
     margin: 0;
-    font: 700 clamp(30px, 4.4vw, 52px)/1 var(--display);
+    font: 400 clamp(30px, 4.4vw, 52px)/1 var(--display);
     letter-spacing: -0.02em;
   }
   .section-head .aside {
@@ -136,8 +136,8 @@
 
   .info h3 {
     margin: 0 0 0.55em;
-    font: 700 clamp(24px, 2.6vw, 34px)/1.1 var(--display);
-    letter-spacing: -0.01em;
+    font: 400 clamp(24px, 2.6vw, 34px)/1.1 var(--display);
+    letter-spacing: -0.02em;
   }
   .info h3 small {
     font: 500 0.55em/1 var(--mono);
@@ -146,19 +146,7 @@
     vertical-align: 0.35em;
     margin-left: 0.3em;
   }
-  .info p { margin: 0 0 1.3em; max-width: 42ch; color: var(--soft); text-wrap: pretty; }
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font: 400 12px/1.5 var(--mono);
-    color: var(--muted);
-  }
-  .meta li:first-child { color: var(--fg); }
-  .meta li + li::before { content: "/"; margin-right: 14px; color: var(--line); }
+  .info p { margin: 0; max-width: 42ch; color: var(--soft); text-wrap: pretty; }
 
   /* series divider */
   .series {
@@ -167,8 +155,8 @@
   }
   .series-title {
     margin: 0.15em 0 0.25em;
-    font: 800 clamp(48px, 12vw, 168px)/0.9 var(--display);
-    letter-spacing: -0.04em;
+    font: 400 clamp(48px, 12vw, 168px)/0.9 "Silkscreen", system-ui, sans-serif;
+    letter-spacing: 0;
     color: var(--pink);
     opacity: 0.9;
   }
@@ -313,7 +301,7 @@
   }
   .contact h2 {
     margin: 0 0 0.6em;
-    font: 700 clamp(30px, 4.4vw, 52px)/1 var(--display);
+    font: 400 clamp(30px, 4.4vw, 52px)/1 var(--display);
     letter-spacing: -0.02em;
   }
   .links { list-style: none; margin: 0 0 72px; padding: 0; border-top: 1px solid var(--line); }
@@ -326,7 +314,7 @@
     padding: 20px 0;
     text-decoration: none;
     font: 500 clamp(18px, 2.4vw, 30px)/1.2 var(--display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     transition: color 0.2s, padding 0.3s;
     overflow-wrap: anywhere;
   }
@@ -372,7 +360,7 @@
 </head>
 <body>
 <header class="top">
-  <a class="mark" href="#">Name Surname</a>
+  <a class="mark" href="#">Maxim Koltiugin</a>
   <nav>
     <a href="#works">work</a>
     <a href="#contact">contact</a>
@@ -382,9 +370,9 @@
 <main>
   <section class="hero">
     <p class="kicker">visuals · light</p>
-    <h1 class="name">Name<br>Surname</h1>
+    <h1 class="name">Maxim<br>Koltiugin</h1>
     <p class="lead">
-      In my visuals I use <em class="pink">feedback loops</em>, <em class="cyan">cellular automata</em>,
+      I build visuals and light in TouchDesigner. In my work I use <em class="pink">feedback loops</em>, <em class="cyan">cellular automata</em>,
       <em class="pink">fractals</em> and the like. I’m drawn to systems that produce complex, unusual
       behavior while staying, as far as possible, simple at&nbsp;their&nbsp;core.
     </p>
@@ -409,8 +397,7 @@
       </div>
       <div class="info">
         <h3>cells</h3>
-        <p>A cellular automaton across the whole wall. The field keeps rebuilding itself: some regions freeze into large blocks, others sprout fans of fine structure. The light stays in the same cold blue, so the wall and the room read as a single object.</p>
-        <ul class="meta"><li>0:13</li><li>cellular automaton</li><li>projection</li><li>light</li></ul>
+        <p>A cellular automaton spread across the wall. Every patch lives only briefly: it grows, breaks into lace-like edges and dissolves, making room for the next.</p>
       </div>
     </article>
 
@@ -424,48 +411,31 @@
       </div>
       <div class="info">
         <h3>grid</h3>
-        <p>Layers of lines overlap and drift into a dense lattice. Form is kept to a minimum — everything rests on rhythm. The projection floods the room with an even violet, and the wall itself becomes the light source.</p>
-        <ul class="meta"><li>0:20</li><li>grid</li><li>rhythm</li><li>light</li></ul>
+        <p>A web left by a creature no one has seen — and it may not have gone far. The threads tighten and slacken on their own, close enough to touch, close enough to take you.</p>
       </div>
     </article>
 
     <article class="work">
       <div class="media">
         <figure class="player">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/ktnkv-3.jpg" aria-label="ktnkv">
+          <video muted loop playsinline controls preload="none" poster="assets/posters/ktnkv-3.jpg" aria-label="hypno">
             <source src="assets/web/ktnkv-3.mp4" type="video/mp4">
           </video>
         </figure>
       </div>
       <div class="info">
-        <h3>ktnkv</h3>
-        <p>Nested diamonds: the image folds into itself again and again, receding into an endless tunnel. Near-total darkness — just thin blue lines on the wall and a few points of light below.</p>
-        <ul class="meta"><li>1:35</li><li>recursion</li><li>feedback</li><li>darkness</li></ul>
+        <h3>hypno</h3>
+        <p>Made for a techno rave. On every bar the feedback loop resets and the light steps out.</p>
       </div>
     </article>
 
     <div class="series">
       <p class="kicker">series</p>
       <h3 class="series-title">infossae</h3>
-      <p>A series built around a single sign — a symmetrical, spider-like emblem. Each time it passes through a different system — glow, a lattice of lenses, line-by-line scanning, feedback — and reassembles as a&nbsp;new&nbsp;creature.</p>
+      <p>A series built around a single sign — a crawling spider crossed with the biohazard symbol. In every piece it stays the same and serves as the seed — the rest grows out of&nbsp;it.</p>
     </div>
 
     <article class="work flip">
-      <div class="media">
-        <figure class="player">
-          <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-1.jpg" aria-label="infossae 1">
-            <source src="assets/web/infossae-1.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-      <div class="info">
-        <h3>infossae <small>01</small></h3>
-        <p>The sign surfaces from a soft glow and sinks back into it. A warm pink-violet haze on the wall, cold strips of light at the edges.</p>
-        <ul class="meta"><li>0:20</li><li>glow</li><li>symmetry</li></ul>
-      </div>
-    </article>
-
-    <article class="work">
       <div class="media">
         <figure class="player">
           <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-2.jpg" aria-label="infossae 2">
@@ -474,13 +444,12 @@
         </figure>
       </div>
       <div class="info">
-        <h3>infossae <small>02</small></h3>
+        <h3>infossae <small>01</small></h3>
         <p>The same sign, quieter and darker: the glow pulses around the silhouette while the light bars shift from blue to red.</p>
-        <ul class="meta"><li>0:12</li><li>glow</li><li>light color</li></ul>
       </div>
     </article>
 
-    <article class="work flip">
+    <article class="work">
       <div class="media">
         <figure class="player">
           <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-3.jpg" aria-label="infossae 3">
@@ -489,13 +458,12 @@
         </figure>
       </div>
       <div class="info">
-        <h3>infossae <small>03</small></h3>
+        <h3>infossae <small>02</small></h3>
         <p>The image breaks into hundreds of cells, as if seen through glass tiles, and a mirrored creature resembling a Rorschach blot assembles in the center.</p>
-        <ul class="meta"><li>0:38</li><li>symmetry</li><li>refraction</li></ul>
       </div>
     </article>
 
-    <article class="work">
+    <article class="work flip">
       <div class="media">
         <figure class="player">
           <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-4.jpg" aria-label="infossae 4">
@@ -504,13 +472,12 @@
         </figure>
       </div>
       <div class="info">
-        <h3>infossae <small>04</small></h3>
+        <h3>infossae <small>03</small></h3>
         <p>Horizontal rows of swollen, fluid cells; the sign is only hinted at through them. At moments the picture goes completely dark — a pause hits as hard as a flash.</p>
-        <ul class="meta"><li>0:27</li><li>texture</li><li>pauses</li></ul>
       </div>
     </article>
 
-    <article class="work flip">
+    <article class="work">
       <div class="media">
         <figure class="player">
           <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-5.jpg" aria-label="infossae 5">
@@ -519,13 +486,12 @@
         </figure>
       </div>
       <div class="info">
-        <h3>infossae <small>05</small></h3>
+        <h3>infossae <small>04</small></h3>
         <p>The wall is scored with horizontal stripes, and the sign is drawn in thin contour lines — as if the image were being read line by line.</p>
-        <ul class="meta"><li>0:23</li><li>lines</li><li>scanning</li></ul>
       </div>
     </article>
 
-    <article class="work">
+    <article class="work flip">
       <div class="media pair">
         <figure class="player portrait">
           <video muted loop playsinline controls preload="none" poster="assets/posters/infossae-6.jpg" aria-label="infossae 6">
@@ -539,9 +505,8 @@
         </figure>
       </div>
       <div class="info">
-        <h3>infossae <small>06 — 07</small></h3>
+        <h3>infossae <small>05 — 06</small></h3>
         <p>Two color states of one scene. Blue: stripes and scan noise. Red: smoky feedback around the sign. Each time, the light in the room takes on the tone of the projection.</p>
-        <ul class="meta"><li>0:15 + 0:17</li><li>color</li><li>feedback</li><li>light</li></ul>
       </div>
     </article>
   </section>
@@ -550,12 +515,11 @@
 <footer class="contact" id="contact">
   <h2>Contact</h2>
   <ul class="links">
-    <li><a href="https://t.me/username"><span>telegram</span>@username</a></li>
-    <li><a href="https://instagram.com/username"><span>instagram</span>@username</a></li>
-    <li><a href="mailto:hello@example.com"><span>email</span>hello@example.com</a></li>
+    <li><a href="https://t.me/lIlIlIlIlIlIIIllI"><span>telegram</span>@lIlIlIlIlIlIIIllI</a></li>
+    <li><a href="mailto:mkoltugin@gmail.com"><span>email</span>mkoltugin@gmail.com</a></li>
   </ul>
   <p class="fine">
-    <span>© 2026 Name Surname</span>
+    <span>© 2026 Maxim Koltiugin</span>
   </p>
 </footer>
 

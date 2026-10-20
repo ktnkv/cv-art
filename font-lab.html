@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Font lab</title>
+<style>
+  :root { --bg: #0b0b0d; --panel: #141418; --line: #2a2a31; --fg: #ececf1; --muted: #8a8a96; --pink: #ff2bd6; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 13px/1.4 system-ui, sans-serif; }
+  body { display: grid; grid-template-columns: 300px 1fr; }
+  aside { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--line); background: var(--panel); }
+  .controls { padding: 14px; display: grid; gap: 12px; border-bottom: 1px solid var(--line); }
+  .controls h1 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  label { display: grid; gap: 6px; color: var(--muted); }
+  label span b { color: var(--fg); font-weight: 500; }
+  input[type=text] { width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; }
+  input[type=range] { width: 100%; accent-color: var(--pink); }
+  .weights { display: flex; flex-wrap: wrap; gap: 4px; }
+  .weights button { padding: 4px 8px; border: 1px solid var(--line); border-radius: 5px; background: none; color: var(--muted); font: inherit; cursor: pointer; }
+  .weights button[aria-pressed=true] { border-color: var(--pink); color: var(--fg); }
+  .cats { display: flex; flex-wrap: wrap; gap: 4px; }
+  .cats button { padding: 3px 8px; border: 1px solid var(--line); border-radius: 99px; background: none; color: var(--muted); font: inherit; font-size: 12px; cursor: pointer; }
+  .targets button { font-size: 13px; padding: 5px 12px; }
+  .cats button[aria-pressed=true] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  ul { list-style: none; margin: 0; padding: 6px; overflow-y: auto; flex: 1; }
+  li button { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; width: 100%; padding: 8px 10px; border: 0; border-radius: 6px; background: none; color: var(--fg); text-align: left; cursor: pointer; }
+  li button:hover { background: #1d1d23; }
+  li button[aria-current=true] { background: #2a1027; outline: 1px solid var(--pink); }
+  li .sample { font-size: 20px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  li .cat { flex: none; font-size: 11px; color: var(--muted); }
+  .out { padding: 12px 14px; border-top: 1px solid var(--line); display: grid; gap: 6px; }
+  .out code { display: block; padding: 8px; border-radius: 6px; background: var(--bg); font: 12px/1.45 ui-monospace, monospace; color: var(--fg); white-space: pre-wrap; word-break: break-all; }
+  .out small { color: var(--muted); }
+  iframe { width: 100%; height: 100%; border: 0; background: #000; }
+</style>
+</head>
+<body>
+<aside>
+  <div class="controls">
+    <h1>Font lab</h1>
+    <div class="cats targets" id="targets"></div>
+    <div class="cats" id="cats"></div>
+    <label><span>Any Google font (Enter)</span><input type="text" id="custom" placeholder="e.g. Space Grotesk"></label>
+    <div class="weights" id="weights"></div>
+    <label><span>Tracking <b id="lsv"></b></span><input type="range" id="ls" min="-0.1" max="0.15" step="0.005"></label>
+    <label id="szrow"><span>Size <b id="szv"></b></span><input type="range" id="sz" min="0.5" max="1.6" step="0.05" value="1"></label>
+    <label><span>Uppercase</span><input type="checkbox" id="uc" style="justify-self:start"></label>
+  </div>
+  <ul id="list"></ul>
+  <div class="out">
+    <small>↑ ↓ — next / previous font</small>
+    <code id="css"></code>
+  </div>
+</aside>
+<iframe id="site" src="index.html" title="site preview"></iframe>
+
+<script>
+// [family, category, weights available, default tracking (em)]
+const FONTS = [
+  ["Unbounded", "wide", [200,300,400,500,600,700,800,900], -0.035],
+  ["Syne", "grotesk", [400,500,600,700,800], -0.03],
+  ["Bricolage Grotesque", "grotesk", [200,300,400,500,600,700,800], -0.04],
+  ["Space Grotesk", "grotesk", [300,400,500,600,700], -0.04],
+  ["Familjen Grotesk", "grotesk", [400,500,600,700], -0.03],
+  ["Inter Tight", "grotesk", [100,200,300,400,500,600,700,800,900], -0.045],
+  ["Archivo", "grotesk", [100,200,300,400,500,600,700,800,900], -0.03],
+  ["Archivo Black", "grotesk", [400], -0.03],
+  ["Darker Grotesque", "grotesk", [300,400,500,600,700,800,900], -0.02],
+  ["Outfit", "grotesk", [100,200,300,400,500,600,700,800,900], -0.03],
+  ["Sora", "grotesk", [100,200,300,400,500,600,700,800], -0.04],
+  ["Red Hat Display", "grotesk", [300,400,500,600,700,800,900], -0.03],
+  ["Manrope", "grotesk", [200,300,400,500,600,700,800], -0.04],
+  ["Dela Gothic One", "grotesk", [400], -0.02],
+  ["Krona One", "wide", [400], -0.03],
+  ["Lexend Zetta", "wide", [100,200,300,400,500,600,700,800,900], -0.08],
+  ["Syncopate", "wide", [400,700], 0],
+  ["Michroma", "wide", [400], -0.02],
+  ["Climate Crisis", "wide", [400], -0.02],
+  ["Big Shoulders Display", "condensed", [100,200,300,400,500,600,700,800,900], 0],
+  ["Anton", "condensed", [400], 0],
+  ["Bebas Neue", "condensed", [400], 0.01],
+  ["Oswald", "condensed", [200,300,400,500,600,700], 0],
+  ["Six Caps", "condensed", [400], 0.02],
+  ["Instrument Serif", "serif", [400], -0.02],
+  ["Fraunces", "serif", [100,200,300,400,500,600,700,800,900], -0.03],
+  ["Playfair Display", "serif", [400,500,600,700,800,900], -0.02],
+  ["DM Serif Display", "serif", [400], -0.02],
+  ["Bodoni Moda", "serif", [400,500,600,700,800,900], -0.02],
+  ["Cormorant Garamond", "serif", [300,400,500,600,700], -0.01],
+  ["Gloock", "serif", [400], -0.02],
+  ["Italiana", "serif", [400], 0],
+  ["Space Mono", "mono", [400,700], -0.04],
+  ["JetBrains Mono", "mono", [100,200,300,400,500,600,700,800], -0.05],
+  ["Major Mono Display", "mono", [400], -0.02],
+  ["VT323", "mono", [400], 0],
+  ["Silkscreen", "mono", [400,700], 0],
+  ["Orbitron", "techno", [400,500,600,700,800,900], 0],
+  ["Tektur", "techno", [400,500,600,700,800,900], -0.02],
+  ["Chakra Petch", "techno", [300,400,500,600,700], -0.02],
+  ["Audiowide", "techno", [400], -0.01],
+  ["Zen Dots", "techno", [400], -0.02],
+  ["Bungee", "display", [400], -0.01],
+  ["Rubik Mono One", "display", [400], -0.03],
+  ["Monoton", "display", [400], 0],
+  ["Rubik Glitch", "display", [400], -0.02],
+];
+
+const $ = id => document.getElementById(id);
+const frame = $("site");
+const TARGETS = {
+  name:     { label: "name",     sel: ".name",         size: "clamp(36px,7vw,104px)",  sample: "Maxim Koltiugin",
+              init: { i: FONTS.findIndex(f => f[0] === "Chakra Petch"), weight: 400, ls: 0.02 } },
+  infossae: { label: "infossae", sel: ".series-title", size: "clamp(48px,12vw,168px)", sample: "infossae",
+              init: { i: FONTS.findIndex(f => f[0] === "Silkscreen"), weight: 400, ls: 0 } },
+  headings: { label: "headings", sel: ".section-head h2, .info h3, .contact h2", sample: "Work · cells", noSize: true,
+              extra: ".links a", init: { i: 0, weight: 700, ls: -0.02 } },
+};
+const states = Object.fromEntries(Object.entries(TARGETS).map(([k, t]) =>
+  [k, { size: 1, uc: false, custom: null, ...t.init }]));
+let target = "name";
+let state = states[target];
+let cat = "all";
+const loaded = new Set();
+
+function cssUrl(fam, weights) {
+  const f = fam.replace(/ /g, "+");
+  return "https://fonts.googleapis.com/css2?family=" + f +
+    (weights.length > 1 || weights[0] !== 400 ? ":wght@" + weights.join(";") : "") + "&display=swap";
+}
+function loadInto(doc, fam, weights) {
+  const id = "lab-" + fam.replace(/\W/g, "");
+  if (doc.getElementById(id)) return;
+  const l = doc.createElement("link");
+  l.id = id; l.rel = "stylesheet"; l.href = cssUrl(fam, weights);
+  doc.head.appendChild(l);
+}
+
+function fontOf(s) {
+  if (s.custom) return [s.custom, "custom", [100,200,300,400,500,600,700,800,900], -0.02];
+  return FONTS[s.i];
+}
+function current() { return fontOf(state); }
+function nearest(ws, w) { return ws.reduce((a, b) => Math.abs(b - w) < Math.abs(a - w) ? b : a); }
+
+function apply() {
+  const [fam, , weights] = current();
+  const w = nearest(weights, state.weight);
+  const doc = frame.contentDocument;
+  if (doc && doc.head) {
+    let css = "";
+    for (const [k, t] of Object.entries(TARGETS)) {
+      const s = states[k];
+      const [f, , ws] = fontOf(s);
+      loadInto(doc, f, s.custom ? [400, 700] : ws);
+      css += `${t.sel}{font-family:"${f}",system-ui,sans-serif !important;font-weight:${nearest(ws, s.weight)} !important;` +
+        `letter-spacing:${s.ls}em !important;` +
+        (s.size !== 1 && !t.noSize ? `font-size:calc(${t.size}*${s.size}) !important;` : "") +
+        (s.uc ? "text-transform:uppercase !important;" : "") + "}\n";
+      // secondary text in the same face keeps its lighter weight
+      if (t.extra) css += `${t.extra}{font-family:"${f}",system-ui,sans-serif !important;font-weight:${nearest(ws, 500)} !important;` +
+        `letter-spacing:${s.ls}em !important;` + (s.uc ? "text-transform:uppercase !important;" : "") + "}\n";
+    }
+    let st = doc.getElementById("lab-style");
+    if (!st) { st = doc.createElement("style"); st.id = "lab-style"; doc.head.appendChild(st); }
+    st.textContent = css;
+  }
+  // weights row
+  $("weights").innerHTML = "";
+  (state.custom ? [300,400,500,600,700,800,900] : weights).forEach(v => {
+    const b = document.createElement("button");
+    b.textContent = v; b.setAttribute("aria-pressed", v === w);
+    b.onclick = () => { state.weight = v; apply(); };
+    $("weights").appendChild(b);
+  });
+  $("ls").value = state.ls; $("lsv").textContent = state.ls.toFixed(3) + "em";
+  $("szv").textContent = "×" + state.size.toFixed(2);
+  $("szrow").hidden = !!TARGETS[target].noSize;
+  $("sz").value = state.size; $("uc").checked = state.uc;
+  $("custom").value = state.custom || "";
+  document.querySelectorAll("#list button").forEach(b => b.setAttribute("aria-current", !state.custom && +b.dataset.i === state.i));
+  $("css").textContent =
+    `font-family: "${fam}"\nfont-weight: ${w}\nletter-spacing: ${state.ls}em` +
+    (state.size !== 1 && !TARGETS[target].noSize ? `\nsize: ×${state.size.toFixed(2)}` : "") + (state.uc ? "\ntext-transform: uppercase" : "");
+}
+
+function select(i) {
+  state.custom = null; state.i = i;
+  const [, , ws, ls] = FONTS[i];
+  state.ls = ls;
+  if (!ws.includes(state.weight)) state.weight = nearest(ws, 800);
+  apply();
+  document.querySelector(`#list button[data-i="${i}"]`)?.scrollIntoView({ block: "nearest" });
+}
+
+function renderList() {
+  const ul = $("list"); ul.innerHTML = "";
+  FONTS.forEach(([fam, fcat, ws], i) => {
+    if (cat !== "all" && fcat !== cat) return;
+    if (!loaded.has(fam)) { loadInto(document, fam, ws); loaded.add(fam); }
+    const li = document.createElement("li");
+    li.innerHTML = `<button data-i="${i}"><span class="sample" style="font-family:'${fam}';font-weight:${nearest(ws, 800)}">${TARGETS[target].sample}</span><span class="cat">${fam}</span></button>`;
+    li.firstChild.onclick = () => select(i);
+    ul.appendChild(li);
+  });
+  apply();
+}
+
+const cats = ["all", ...new Set(FONTS.map(f => f[1]))];
+cats.forEach(c => {
+  const b = document.createElement("button");
+  b.textContent = c; b.setAttribute("aria-pressed", c === cat);
+  b.onclick = () => { cat = c; document.querySelectorAll("#cats button").forEach(x => x.setAttribute("aria-pressed", x === b)); renderList(); };
+  $("cats").appendChild(b);
+});
+
+function scrollToTarget() {
+  frame.contentDocument?.querySelector(TARGETS[target].sel)?.scrollIntoView({ block: "center" });
+}
+Object.entries(TARGETS).forEach(([k, t]) => {
+  const b = document.createElement("button");
+  b.textContent = t.label; b.setAttribute("aria-pressed", k === target);
+  b.onclick = () => {
+    target = k; state = states[k];
+    document.querySelectorAll("#targets button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderList(); scrollToTarget();
+    document.querySelector(`#list button[data-i="${state.i}"]`)?.scrollIntoView({ block: "nearest" });
+  };
+  $("targets").appendChild(b);
+});
+
+$("ls").oninput = e => { state.ls = +e.target.value; apply(); };
+$("sz").oninput = e => { state.size = +e.target.value; apply(); };
+$("uc").onchange = e => { state.uc = e.target.checked; apply(); };
+$("custom").onkeydown = e => {
+  if (e.key === "Enter" && e.target.value.trim()) { state.custom = e.target.value.trim(); apply(); }
+};
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" && e.target.type === "text") return;
+  if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+  e.preventDefault();
+  const visible = [...document.querySelectorAll("#list button")].map(b => +b.dataset.i);
+  const pos = visible.indexOf(state.i);
+  const next = visible[(pos + (e.key === "ArrowDown" ? 1 : -1) + visible.length) % visible.length];
+  select(next);
+});
+frame.addEventListener("load", apply);
+renderList();
+</script>
+</body>
+</html>
