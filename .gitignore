@@ -1,7 +1,0 @@
-.DS_Store
-.claude/
-
-# raw phone footage: too large for GitHub (several files > 100 MB);
-# the page plays the compressed copies in assets/web
-assets/selected/
-assets/good-but-not-selected/
